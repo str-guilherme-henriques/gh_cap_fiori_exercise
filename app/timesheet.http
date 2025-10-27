@@ -1,0 +1,108 @@
+### 🔹 Base URL
+@baseUrl = http://localhost:4004/odata/v4/timesheet
+
+### =====================================================================================
+### 👥 EMPLOYEES
+### =====================================================================================
+
+### ➕ Criar novo colaborador
+POST {{baseUrl}}/Employees
+Content-Type: application/json
+
+{
+  "ID": "E004",
+  "name": "Pedro Gomes",
+  "email": "pedro.gomes@innovatech.com"
+}
+
+###
+
+### 📋 Listar todos os colaboradores
+GET {{baseUrl}}/Employees
+
+###
+
+### 🔍 Obter colaborador específico
+GET {{baseUrl}}/Employees(E001)
+
+###
+
+### 🗑️ Eliminar colaborador
+### DELETE {{baseUrl}}/Employees(E004)
+
+
+### =====================================================================================
+### 📁 PROJECTS
+### =====================================================================================
+
+### ➕ Criar novo projeto
+POST {{baseUrl}}/Projects
+Content-Type: application/json
+
+{
+  "ID": "P004",
+  "name": "Intranet Corporativa",
+  "client": "Angola Telecom"
+}
+
+###
+
+### 📋 Listar todos os projetos
+GET {{baseUrl}}/Projects
+
+###
+
+### 🔍 Obter projeto específico
+GET {{baseUrl}}/Projects(P001)
+
+###
+
+### 🗑️ Eliminar projeto
+### DELETE {{baseUrl}}/Projects(P004)
+
+
+### =====================================================================================
+### ⏱️ WORK ENTRIES
+### =====================================================================================
+
+### ➕ Criar registo de horas
+POST {{baseUrl}}/WorkEntries
+Content-Type: application/json
+
+{
+  "ID": "W100",
+  "date": "2025-10-27",
+  "hours": 7.5,
+  "employee_ID": "E001",
+  "project_ID": "P001"
+}
+
+###
+
+### 📋 Listar todos os registos de horas
+GET {{baseUrl}}/WorkEntries
+
+###
+
+### 🔍 Obter registo específico
+GET {{baseUrl}}/WorkEntries(W001)
+
+###
+
+### 🗑️ Eliminar registo
+### DELETE {{baseUrl}}/WorkEntries(W100)
+
+
+### =====================================================================================
+### 📊 Lógica Customizada: getWeeklySummary
+### =====================================================================================
+
+### 📈 Obter total de horas por projeto e colaborador numa semana
+POST {{baseUrl}}/getWeeklySummary
+Content-Type: application/json
+
+{
+  "employee_ID": "E001",
+  "weekStart": "2025-10-20",
+  "weekEnd": "2025-10-26"
+}
