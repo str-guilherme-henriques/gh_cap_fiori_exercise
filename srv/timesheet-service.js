@@ -25,10 +25,10 @@ module.exports = srv => {
 
   // Validações na criação de um registo de trabalho
   srv.before('CREATE', 'WorkEntries', async (req) => {
-    const { employee_ID, date, hours } = req.data;
+    const { employee_ID, project_ID, date, hours } = req.data;
 
     // 1. Validar que o colaborador não ultrapassa 8h por dia
-
+    // (Considera todos os registos do dia, mesmo os de outros projetos)
     const existing = await SELECT.one.from('innova.tech.WorkEntry')
       .columns('sum(hours) as total')
       .where({ employee_ID, date });
@@ -45,6 +45,13 @@ module.exports = srv => {
 
     if (dayOfWeek === 0 || dayOfWeek === 6 || holidays.includes(date)) {
       req.error(400, 'workEntryOnNonWorkingDay');
+    }
+
+    // 3. Validar se já existe um registo para o mesmo colaborador, projeto e data
+    const duplicate = await SELECT.one.from('innova.tech.WorkEntry').where({ employee_ID, project_ID, date, isActive: true });
+
+    if (duplicate) {
+      req.error(400, 'duplicateWorkEntry');
     }
 
   });
