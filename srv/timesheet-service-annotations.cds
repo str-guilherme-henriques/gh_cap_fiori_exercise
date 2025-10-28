@@ -80,6 +80,13 @@ annotate TimesheetService.Projects with {
 
 annotate TimesheetService.WorkEntries with {
     ID @UI.Hidden;
-    employee @Common.Text: employee.name; // Show employee name in dropdowns
-    project @Common.Text: project.name; // Show project name in dropdowns
+    employee @Common.Text: employee.name;
+    project @Common.Text: project.name;
 };
+
+annotate TimesheetService.WorkEntries with @(
+    UI.LineItem: [
+        { Value: date },
+        { Value: hours }
+    ]
+);

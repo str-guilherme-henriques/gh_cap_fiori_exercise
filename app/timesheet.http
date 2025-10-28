@@ -70,10 +70,10 @@ POST {{baseUrl}}/WorkEntries
 Content-Type: application/json
 
 {
-  "ID": "W101",
+  "ID": "W200",
   "date": "2025-01-03",
   "hours": 7.5,
-  "employee_ID": "E001",
+  "employee_ID": "E005",
   "project_ID": "P003"
 }
 
