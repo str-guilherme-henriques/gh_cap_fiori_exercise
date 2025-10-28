@@ -23,7 +23,7 @@ annotate TimesheetService.Employees with @(
             {
                 $Type: 'UI.ReferenceFacet',
                 Label: '{i18n>WorkEntries}',
-                Target: 'workEntries/@UI.LineItem'
+                Target: 'workEntries/@UI.LineItem#WorkEntry'
             }
         ],
         FieldGroup #General: { Data: [
@@ -48,7 +48,7 @@ annotate TimesheetService.Projects with @(
             Title: { Value: name },
             Description: { Value: client }
         },
-        LineItem: [
+        LineItem #Projects: [
             { Value: name },
             { Value: client }
         ],
@@ -61,7 +61,7 @@ annotate TimesheetService.Projects with @(
             {
                 $Type: 'UI.ReferenceFacet',
                 Label: '{i18n>WorkEntries}',
-                Target: 'workEntries/@UI.LineItem'
+                Target: 'workEntries/@UI.LineItem#WorkEntry'
             }
         ],
         FieldGroup #General: { Data: [
@@ -85,7 +85,7 @@ annotate TimesheetService.WorkEntries with {
 };
 
 annotate TimesheetService.WorkEntries with @(
-    UI.LineItem: [
+    UI.LineItem #WorkEntry: [
         { Value: date },
         { Value: hours }
     ]

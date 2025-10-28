@@ -10,7 +10,6 @@ POST {{baseUrl}}/Employees
 Content-Type: application/json
 
 {
-  "ID": "E005",
   "name": "Miguel Terrivel",
   "email": "miguel.terrivel@innovatech.com"
 }
@@ -23,12 +22,12 @@ GET {{baseUrl}}/Employees
 ###
 
 ### 🔍 Obter colaborador específico
-GET {{baseUrl}}/Employees('E001')
+GET {{baseUrl}}/Employees(f47ac10b-58cc-4372-a567-0e02b2c3d479)
 
 ###
 
 ### 🗑️ Eliminar colaborador
-DELETE {{baseUrl}}/Employees('E003')
+DELETE {{baseUrl}}/Employees(f47ac10b-58cc-4372-a567-0e02b2c3d479)
 
 
 ### =====================================================================================
@@ -40,7 +39,6 @@ POST {{baseUrl}}/Projects
 Content-Type: application/json
 
 {
-  "ID": "P004",
   "name": "Intranet Corporativa",
   "client": "Angola Telecom"
 }
@@ -53,12 +51,12 @@ GET {{baseUrl}}/Projects
 ###
 
 ### 🔍 Obter projeto específico
-GET {{baseUrl}}/Projects('P001')
+GET {{baseUrl}}/Projects(c4a1b2d3-e4f5-a6b7-c8d9-e0f1a2b3c4d5)
 
 ###
 
 ### 🗑️ Eliminar projeto
-DELETE {{baseUrl}}/Projects('P001')
+DELETE {{baseUrl}}/Projects(c4a1b2d3-e4f5-a6b7-c8d9-e0f1a2b3c4d5)
 
 
 ### =====================================================================================
@@ -70,11 +68,10 @@ POST {{baseUrl}}/WorkEntries
 Content-Type: application/json
 
 {
-  "ID": "W200",
   "date": "2025-01-03",
   "hours": 7.5,
-  "employee_ID": "E005",
-  "project_ID": "P003"
+  "employee_ID": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+  "project_ID": "d5b2c3e4-f5a6-b7c8-d9e0-f1a2b3c4d5e6"
 }
 
 ###
@@ -85,12 +82,12 @@ GET {{baseUrl}}/WorkEntries
 ###
 
 ### 🔍 Obter registo específico
-GET {{baseUrl}}/WorkEntries('W001')
+GET {{baseUrl}}/WorkEntries(1f8a0c4b-5b5a-4b1a-8b0a-9b8b7c6d5e4f)
 
 ###
 
 ### 🗑️ Eliminar registo
-DELETE {{baseUrl}}/WorkEntries('W001')
+DELETE {{baseUrl}}/WorkEntries(1f8a0c4b-5b5a-4b1a-8b0a-9b8b7c6d5e4f)
 
 
 ### =====================================================================================
@@ -102,7 +99,7 @@ POST {{baseUrl}}/getWeeklySummary
 Content-Type: application/json
 
 {
-  "employee_ID": "E001",
+  "employee_ID": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
   "weekStart": "2025-10-20",
   "weekEnd": "2025-10-26"
 }

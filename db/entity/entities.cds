@@ -1,26 +1,25 @@
 namespace innova.tech;
 
-using { innova.tech as asp} from '../aspects/aspects.cds';
-using { managed } from '@sap/cds/common';
+using { managed,cuid } from '@sap/cds/common';
 
-entity Employee : asp.Identifiable, managed {
-    name        : String(100)           @title : '{i18n>EmployeeName}';
-    email       : String(100)           @title : '{i18n>email}';
+entity Employee : cuid, managed {
+    name        : String(100)           @title : '{i18n>EmployeeName}'  @mandatory;
+    email       : String(100)           @title : '{i18n>email}'         @mandatory;
     workEntries : Association to many WorkEntry on workEntries.employee = $self;
     isActive    : Boolean default true  @title : '{i18n>isActive}';
 }
 
-entity Project : asp.Identifiable, managed {
-    name        : String(100)               @title : '{i18n>ProjectName}';
-    client      : String(100)               @title : '{i18n>client}';
+entity Project : cuid, managed {
+    name        : String(100)               @title : '{i18n>ProjectName}' @mandatory;
+    client      : String(100)               @title : '{i18n>client}'      @mandatory;
     workEntries : Association to many WorkEntry on workEntries.project = $self;
     isActive    : Boolean default true      @title : '{i18n>isActive}';
 }
 
-entity WorkEntry : asp.Identifiable, managed {
-    date        : Date                      @title : '{i18n>date}';
-    hours       : Decimal(4,1)              @title : '{i18n>hours}';
-    employee    : Association to Employee   @title : '{i18n>Employee}';
+entity WorkEntry : cuid, managed {
+    date        : Date                      @title : '{i18n>date}'      @mandatory;
+    hours       : Decimal(4,1)              @title : '{i18n>hours}'     @mandatory;
+    employee    : Association to Employee   @title : '{i18n>Employee}'  @mandatory;
     project     : Association to Project    @title : '{i18n>Project}';
     isActive    : Boolean default true      @title : '{i18n>isActive}';
 }
