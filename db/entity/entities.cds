@@ -3,23 +3,23 @@ namespace innova.tech;
 using { innova.tech as asp} from '../aspects/aspects.cds';
 
 entity Employee : asp.Identifiable {
-    name        : String(100);
-    email       : String(100);
+    name        : String(100)           @title : '{i18n>EmployeeName}';
+    email       : String(100)           @title : '{i18n>email}';
     workEntries : Association to many WorkEntry on workEntries.employee = $self;
-    isActive    : Boolean default true;
+    isActive    : Boolean default true  @title : '{i18n>isActive}';
 }
 
 entity Project : asp.Identifiable {
-    name        : String(100);
-    client      : String(100);
+    name        : String(100)               @title : '{i18n>ProjectName}';
+    client      : String(100)               @title : '{i18n>client}';
     workEntries : Association to many WorkEntry on workEntries.project = $self;
-    isActive    : Boolean default true;
+    isActive    : Boolean default true      @title : '{i18n>isActive}';
 }
 
 entity WorkEntry : asp.Identifiable {
-    date        : Date;
-    hours       : Decimal(4,1);
-    employee    : Association to Employee;
-    project     : Association to Project;
-    isActive    : Boolean default true;
+    date        : Date                      @title : '{i18n>date}';
+    hours       : Decimal(4,1)              @title : '{i18n>hours}';
+    employee    : Association to Employee   @title : '{i18n>Employee}';
+    project     : Association to Project    @title : '{i18n>Project}';
+    isActive    : Boolean default true      @title : '{i18n>isActive}';
 }

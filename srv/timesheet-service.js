@@ -1,6 +1,6 @@
 module.exports = srv => {
 
-  // 🧹 Filtrar automaticamente apenas registos ativos
+  // Filtrar automaticamente apenas registos ativos
   srv.before('READ', '*', (req) => {
     if (!req.query.SELECT.where) req.query.where('isActive =', true);
     });
@@ -36,8 +36,9 @@ module.exports = srv => {
   // DELETE lógico em todas as entidades
   for (const entity of ['Employees', 'Projects', 'WorkEntries']) {
     srv.on('DELETE', entity, async (req) => {
-      const { ID } = req.data;
-      const table = `innova.tech.${entity.slice(0, -1)}`; // remove plural simples
+      const { ID } = req.params[0];
+      const singular = (entity === 'WorkEntries') ? 'WorkEntry' : entity.slice(0, -1);
+      const table = `innova.tech.${singular}`;
       
       const affected = await UPDATE(table).set({ isActive: false }).where({ ID });
       

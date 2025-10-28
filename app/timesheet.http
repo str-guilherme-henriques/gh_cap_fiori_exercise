@@ -10,9 +10,9 @@ POST {{baseUrl}}/Employees
 Content-Type: application/json
 
 {
-  "ID": "E004",
-  "name": "Pedro Gomes",
-  "email": "pedro.gomes@innovatech.com"
+  "ID": "E005",
+  "name": "Miguel Terrivel",
+  "email": "miguel.terrivel@innovatech.com"
 }
 
 ###
@@ -23,12 +23,12 @@ GET {{baseUrl}}/Employees
 ###
 
 ### 🔍 Obter colaborador específico
-GET {{baseUrl}}/Employees(E001)
+GET {{baseUrl}}/Employees('E001')
 
 ###
 
 ### 🗑️ Eliminar colaborador
-### DELETE {{baseUrl}}/Employees(E004)
+DELETE {{baseUrl}}/Employees('E003')
 
 
 ### =====================================================================================
@@ -53,12 +53,12 @@ GET {{baseUrl}}/Projects
 ###
 
 ### 🔍 Obter projeto específico
-GET {{baseUrl}}/Projects(P001)
+GET {{baseUrl}}/Projects('P001')
 
 ###
 
 ### 🗑️ Eliminar projeto
-### DELETE {{baseUrl}}/Projects(P004)
+DELETE {{baseUrl}}/Projects('P001')
 
 
 ### =====================================================================================
@@ -85,12 +85,12 @@ GET {{baseUrl}}/WorkEntries
 ###
 
 ### 🔍 Obter registo específico
-GET {{baseUrl}}/WorkEntries(W001)
+GET {{baseUrl}}/WorkEntries('W001')
 
 ###
 
 ### 🗑️ Eliminar registo
-### DELETE {{baseUrl}}/WorkEntries(W100)
+DELETE {{baseUrl}}/WorkEntries('W001')
 
 
 ### =====================================================================================
