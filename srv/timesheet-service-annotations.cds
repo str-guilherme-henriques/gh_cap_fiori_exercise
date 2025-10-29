@@ -13,6 +13,11 @@ annotate TimesheetService.Employees with @(
         LineItem: [
             { Value: name },
             { Value: email },
+            {
+                $Type : 'UI.DataFieldForAction',
+                Label : '{i18n>getWeeklyHoursSummary}',
+                Action : 'TimesheetService.getWeeklyHoursSummary'
+            }
         ],
         Facets: [
             {

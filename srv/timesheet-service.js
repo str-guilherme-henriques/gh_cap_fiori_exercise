@@ -56,6 +56,36 @@ module.exports = srv => {
 
   });
 
+  // Implementação da ação getWeeklyHoursSummary
+  srv.on('getWeeklyHoursSummary', 'Employees', async (req) => {
+    const { ID } = req.params[0]; // ID do colaborador
+    const today = new Date();
+    const dayOfWeek = today.getUTCDay(); // 0=Domingo, 1=Segunda, ...
+    
+    // Define o início da semana como Segunda-feira (subtrai os dias passados desde segunda)
+    const weekStart = new Date(today);
+    const dayOfMonth = weekStart.getUTCDate();
+    const dayAdjustment = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Se for Domingo (0), volta 6 dias
+    weekStart.setUTCDate(dayOfMonth - dayAdjustment);
+    
+    // Formata as datas para YYYY-MM-DD
+    const weekStartDate = weekStart.toISOString().slice(0, 10);
+    const todayDate = today.toISOString().slice(0, 10);
+
+    // Soma as horas do colaborador na semana corrente
+    const result = await SELECT.one.from('innova.tech.WorkEntry')
+      .columns('sum(hours) as totalHours')
+      .where({ employee_ID: ID })
+      .and(`date between '${weekStartDate}' and '${todayDate}'`);
+
+    const totalHours = result?.totalHours || 0;
+
+    // Retorna uma mensagem de sucesso para o utilizador
+    const message = `O colaborador registou um total de ${totalHours} horas na semana corrente.`;
+    req.notify(message);
+    return message;
+  });
+
   // Somar horas semanais por projeto e colaborador
   srv.on('getWeeklySummary', async (req) => {
     const { employee_ID, weekStart, weekEnd } = req.data;
