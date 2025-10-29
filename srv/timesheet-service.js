@@ -1,10 +1,5 @@
 module.exports = srv => {
 
-  // Filtrar automaticamente apenas registos ativos
-  srv.before('READ', '*', (req) => {
-    if (!req.query.SELECT.where) req.query.where('isActive =', true);
-    });
-
   // Lista de feriados (pode ser movida para uma configuração externa)
   const holidays = [
     '2025-01-01', // Ano Novo

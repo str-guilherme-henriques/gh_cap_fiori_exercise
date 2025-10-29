@@ -16,10 +16,12 @@
   "scripts": {
     "start": "cds-serve",
     "kill_port": "kill -9 $(lsof -t -i:4004)",
-    "watch-frontend_1": "cds watch --open innova.tech.front.frontend1/index.html?sap-ui-xx-viewCache=false --livereload false",
     "undeploy": "cf undeploy gh_cap_fiori_exercise --delete-services --delete-service-keys --delete-service-brokers",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
-    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "watch-frontend_projects": "cds watch --open innova.tech.front.frontendprojects/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-frontend_employees": "cds watch --open innova.tech.front.frontendemployees/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-frontend_workentries": "cds watch --open innova.tech.front.frontendworkentries/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "cds": {
     "requires": {
@@ -36,6 +38,8 @@
     "app/*"
   ],
   "sapux": [
-    "app/frontend_1"
+    "app/frontend_projects",
+    "app/frontend_employees",
+    "app/frontend_workentries"
   ]
 }

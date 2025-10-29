@@ -28,7 +28,7 @@ annotate TimesheetService.Employees with @(
             {
                 $Type: 'UI.ReferenceFacet',
                 Label: '{i18n>WorkEntries}',
-                Target: 'workEntries/@UI.LineItem#WorkEntry'
+                Target: 'workEntries/@UI.LineItem#WE'
             }
         ],
         FieldGroup #General: { Data: [
@@ -57,6 +57,16 @@ annotate TimesheetService.Projects with @(
             { Value: name },
             { Value: client }
         ],
+        //== Initial Load Alternative
+        PresentationVariant: {
+            SortOrder: [{
+                Property: name,
+                Descending: false
+            }],
+            Visualizations: ['@UI.LineItem#Projects'],
+            InitialExpansionLevel: 1
+        },
+        //== End
         Facets: [
             {
                 $Type: 'UI.ReferenceFacet',
@@ -66,7 +76,7 @@ annotate TimesheetService.Projects with @(
             {
                 $Type: 'UI.ReferenceFacet',
                 Label: '{i18n>WorkEntries}',
-                Target: 'workEntries/@UI.LineItem#WorkEntry'
+                Target: 'workEntries/@UI.LineItem#WE'
             }
         ],
         FieldGroup #General: { Data: [
@@ -81,17 +91,15 @@ annotate TimesheetService.Projects with {
     name @Common.Label: '{i18n>ProjectName}';
 };
 
-//== Annotations for WorkEntries
+annotate TimesheetService.WorkEntries with @(
+    UI: {
+        LineItem#WE: [
+            { Value: date },
+            { Value: hours }
+        ],
+    }
+);
 
 annotate TimesheetService.WorkEntries with {
     ID @UI.Hidden;
-    employee @Common.Text: employee.name;
-    project @Common.Text: project.name;
 };
-
-annotate TimesheetService.WorkEntries with @(
-    UI.LineItem #WorkEntry: [
-        { Value: date },
-        { Value: hours }
-    ]
-);
