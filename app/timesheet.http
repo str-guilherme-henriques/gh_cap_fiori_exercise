@@ -27,7 +27,7 @@ GET {{baseUrl}}/Employees(f47ac10b-58cc-4372-a567-0e02b2c3d479)
 ###
 
 ### 🗑️ Eliminar colaborador
-DELETE {{baseUrl}}/Employees(f47ac10b-58cc-4372-a567-0e02b2c3d479)
+DELETE {{baseUrl}}/Employees(7753cc6e-fa3c-4d5c-a6dd-ba38616dfc66)
 
 
 ### =====================================================================================
