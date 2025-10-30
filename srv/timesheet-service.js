@@ -88,6 +88,22 @@ module.exports = srv => {
   srv.on('getWeeklyHoursSummary', 'Employees', (req) => getWeeklyHoursFor(req, 'employee_ID', 'O colaborador registou um total de {0} horas na semana corrente.'));
   srv.on('getWeeklyHoursSummary', 'Projects', (req) => getWeeklyHoursFor(req, 'project_ID', 'O projeto consumiu um total de {0} horas na semana corrente.'));
 
+  // Ação para obter o esforço total de um projeto
+  srv.on('getProjectEffort', 'Projects', async (req) => {
+    const { ID } = req.params[0];
+
+    // Soma todas as horas para o projeto, considerando apenas registos ativos
+    const result = await SELECT.one.from('innova.tech.WorkEntry')
+      .columns('sum(hours) as totalHours')
+      .where({ project_ID: ID, isActive: true });
+
+    const totalHours = result?.totalHours || 0;
+
+    const message = `O esforço total alocado a este projeto é de ${totalHours} horas.`;
+    req.notify(message);
+    return message;
+  });
+
   // DELETE lógico em todas as entidades
   for (const entity of ['Employees', 'Projects', 'WorkEntries']) {
     srv.on('DELETE', entity, async (req) => {

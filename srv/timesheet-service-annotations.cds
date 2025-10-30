@@ -71,6 +71,11 @@ annotate TimesheetService.Projects with @(
                 $Type : 'UI.DataFieldForAction',
                 Label : '{i18n>getWeeklyHoursSummary}',
                 Action : 'TimesheetService.getWeeklyHoursSummary'
+            },
+            {
+                $Type : 'UI.DataFieldForAction',
+                Label : '{i18n>getProjectEffort}',
+                Action : 'TimesheetService.getProjectEffort'
             }
         ],
         //== Initial Load Alternative
