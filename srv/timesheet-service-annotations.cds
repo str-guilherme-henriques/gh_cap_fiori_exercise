@@ -33,7 +33,7 @@ annotate TimesheetService.Employees with @(
         ],
         FieldGroup #General: { Data: [
             { Value: name },
-            { Value: email }
+            { Value: email, Criticality: 5 }
         ] }
     }
 );
@@ -127,11 +127,11 @@ annotate TimesheetService.WorkEntries with @(
     UI: {
         HeaderInfo: {
             TypeName: '{i18n>WorkEntry}',
-            TypeNamePlural: '{i18n>WorkEntries}'
+            TypeNamePlural: '{i18n>WorkEntries}',
         },
         LineItem#WE: [
-            { Value: date },
-            { Value: hours }
+            {   Value: date },
+            {   Value: hours}
         ],
         SelectionFields: [
             employee_ID,
