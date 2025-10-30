@@ -5,14 +5,14 @@ using { managed,cuid } from '@sap/cds/common';
 entity Employee : cuid, managed {
     name        : String(100)           @title : '{i18n>EmployeeName}'  @mandatory;
     email       : String(100)           @title : '{i18n>email}'         @mandatory;
-    workEntries : Association to many WorkEntry on workEntries.employee = $self;
+    workEntries : Association to many WorkEntry on workEntries.employee = $self @readonly;
     isActive    : Boolean default true  @title : '{i18n>isActive}';
 }
 
 entity Project : cuid, managed {
     name        : String(100)               @title : '{i18n>ProjectName}' @mandatory;
     client      : String(100)               @title : '{i18n>client}'      @mandatory;
-    workEntries : Association to many WorkEntry on workEntries.project = $self;
+    workEntries : Association to many WorkEntry on workEntries.project = $self @readonly;
     isActive    : Boolean default true      @title : '{i18n>isActive}';
 }
 

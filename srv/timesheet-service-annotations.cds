@@ -43,6 +43,17 @@ annotate TimesheetService.Employees with {
     name @Common.Label: '{i18n>EmployeeName}';
 };
 
+annotate TimesheetService.Employees with @(
+    Capabilities.NavigationRestrictions: {
+        RestrictedProperties: [{
+            NavigationProperty: workEntries,
+            InsertRestrictions: { Insertable: false },
+            UpdateRestrictions: { Updatable: false },
+            DeleteRestrictions: { Deletable: false }
+        }]
+    }
+);
+
 //== Annotations for Projects
 
 annotate TimesheetService.Projects with @(
@@ -91,8 +102,23 @@ annotate TimesheetService.Projects with {
     name @Common.Label: '{i18n>ProjectName}';
 };
 
+annotate TimesheetService.Projects with @(
+    Capabilities.NavigationRestrictions: {
+        RestrictedProperties: [{
+            NavigationProperty: workEntries,
+            InsertRestrictions: { Insertable: false },
+            UpdateRestrictions: { Updatable: false },
+            DeleteRestrictions: { Deletable: false }
+        }]
+    }
+);
+
 annotate TimesheetService.WorkEntries with @(
     UI: {
+        HeaderInfo: {
+            TypeName: '{i18n>WorkEntry}',
+            TypeNamePlural: '{i18n>WorkEntries}'
+        },
         LineItem#WE: [
             { Value: date },
             { Value: hours }
