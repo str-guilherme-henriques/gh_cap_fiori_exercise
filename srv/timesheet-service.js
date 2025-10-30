@@ -51,48 +51,42 @@ module.exports = srv => {
 
   });
 
-  // Implementação da ação getWeeklyHoursSummary
-  srv.on('getWeeklyHoursSummary', 'Employees', async (req) => {
-    const { ID } = req.params[0]; // ID do colaborador
+  // Função auxiliar para calcular o total de horas semanais
+  const getWeeklyHoursFor = async (req, filterField, messageTemplate) => {
+    const { ID } = req.params[0];
     const today = new Date();
     const dayOfWeek = today.getUTCDay(); // 0=Domingo, 1=Segunda, ...
-    
+
     // Define o início da semana como Segunda-feira (subtrai os dias passados desde segunda)
     const weekStart = new Date(today);
     const dayOfMonth = weekStart.getUTCDate();
     const dayAdjustment = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Se for Domingo (0), volta 6 dias
     weekStart.setUTCDate(dayOfMonth - dayAdjustment);
-    
+
     // Formata as datas para YYYY-MM-DD
     const weekStartDate = weekStart.toISOString().slice(0, 10);
     const todayDate = today.toISOString().slice(0, 10);
 
-    // Soma as horas do colaborador na semana corrente
+    // Constrói a condição de filtro dinamicamente
+    const whereCondition = { [filterField]: ID };
+
+    // Soma as horas na semana corrente
     const result = await SELECT.one.from('innova.tech.WorkEntry')
       .columns('sum(hours) as totalHours')
-      .where({ employee_ID: ID })
+      .where(whereCondition)
       .and(`date between '${weekStartDate}' and '${todayDate}'`);
 
     const totalHours = result?.totalHours || 0;
 
     // Retorna uma mensagem de sucesso para o utilizador
-    const message = `O colaborador registou um total de ${totalHours} horas na semana corrente.`;
+    const message = messageTemplate.replace('{0}', totalHours);
     req.notify(message);
     return message;
-  });
+  };
 
-  // Somar horas semanais por projeto e colaborador
-  srv.on('getWeeklySummary', async (req) => {
-    const { employee_ID, weekStart, weekEnd } = req.data;
-
-    const results = await SELECT.from('innova.tech.WorkEntry')
-      .columns('project_ID', 'sum(hours) as total')
-      .where({ employee_ID })
-      .and(`date between '${weekStart}' and '${weekEnd}'`)
-      .groupBy('project_ID');
-
-    return results;
-  });
+  // Implementação da ação getWeeklyHoursSummary para Employees e Projects
+  srv.on('getWeeklyHoursSummary', 'Employees', (req) => getWeeklyHoursFor(req, 'employee_ID', 'O colaborador registou um total de {0} horas na semana corrente.'));
+  srv.on('getWeeklyHoursSummary', 'Projects', (req) => getWeeklyHoursFor(req, 'project_ID', 'O projeto consumiu um total de {0} horas na semana corrente.'));
 
   // DELETE lógico em todas as entidades
   for (const entity of ['Employees', 'Projects', 'WorkEntries']) {

@@ -8,7 +8,12 @@ service TimesheetService {
     action getWeeklyHoursSummary() returns String;
   };
   @odata.draft.enabled
-  entity Projects    as projection on db.Project;
+  entity Projects    as projection on db.Project {
+    *,
+  } actions {
+    action getWeeklyHoursSummary() returns String;
+    action getProjectEffort() returns String;
+  };
   @odata.draft.enabled
   entity WorkEntries as projection on db.WorkEntry;
 }

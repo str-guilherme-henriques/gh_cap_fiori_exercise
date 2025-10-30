@@ -66,7 +66,12 @@ annotate TimesheetService.Projects with @(
         },
         LineItem #Projects: [
             { Value: name },
-            { Value: client }
+            { Value: client },
+            {
+                $Type : 'UI.DataFieldForAction',
+                Label : '{i18n>getWeeklyHoursSummary}',
+                Action : 'TimesheetService.getWeeklyHoursSummary'
+            }
         ],
         //== Initial Load Alternative
         PresentationVariant: {
@@ -122,6 +127,10 @@ annotate TimesheetService.WorkEntries with @(
         LineItem#WE: [
             { Value: date },
             { Value: hours }
+        ],
+        SelectionFields: [
+            employee_ID,
+            project_ID
         ],
     }
 );
